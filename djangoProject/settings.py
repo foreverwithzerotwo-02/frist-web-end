@@ -69,9 +69,9 @@ INSTALLED_APPS = [
 # 允许所有域名访问
 # CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    "https://first-web-wwdg.vercel.app/",   # 改成你前端真实的 Vercel 地址！！！
-    # 或者先临时允许所有（测试用）
-    # "https://*",
+    "https://first-web-wwdg.vercel.app",   # ← 去掉最后的 /
+    "http://localhost:5173",                # 本地开发也加一个，方便调试
+    "http://127.0.0.1:5173",
 ]
 
 MIDDLEWARE = [
