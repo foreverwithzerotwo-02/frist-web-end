@@ -67,7 +67,12 @@ INSTALLED_APPS = [
 ]
 
 # 允许所有域名访问
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://first-web-wwdg.vercel.app/",   # 改成你前端真实的 Vercel 地址！！！
+    # 或者先临时允许所有（测试用）
+    # "https://*",
+]
 
 MIDDLEWARE = [
     # 解决跨域问题
@@ -108,15 +113,21 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # 使用 MySQL 数据库引擎
-        'NAME': 'forumstudydiary',  # 数据库名称
-        'USER': 'root',  # 数据库用户名
-        'PASSWORD': '111111',  # 数据库密码
-        'HOST': 'localhost',  # 数据库主机，默认本地为 localhost
-        'PORT': '3306',  # MySQL 默认端口为 3306
-        'OPTIONS': {
-            'charset': 'utf8mb4',  # 推荐使用 utf8mb4 以支持更多字符集
-        },
+        # 'ENGINE': 'django.db.backends.mysql',  # 使用 MySQL 数据库引擎
+        # 'NAME': 'forumstudydiary',  # 数据库名称
+        # 'USER': 'root',  # 数据库用户名
+        # 'PASSWORD': '111111',  # 数据库密码
+        # 'HOST': 'localhost',  # 数据库主机，默认本地为 localhost
+        # 'PORT': '3306',  # MySQL 默认端口为 3306
+        # 'OPTIONS': {
+        #     'charset': 'utf8mb4',  # 推荐使用 utf8mb4 以支持更多字符集
+        # },
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('MYSQLDATABASE', 'railway'),
+        'USER': os.getenv('MYSQLUSER', 'root'),
+        'PASSWORD': os.getenv('MYSQLPASSWORD', ''),
+        'HOST': os.getenv('MYSQLHOST', 'localhost'),
+        'PORT': os.getenv('MYSQLPORT', '3306'),
     }
 }
 
@@ -157,6 +168,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
